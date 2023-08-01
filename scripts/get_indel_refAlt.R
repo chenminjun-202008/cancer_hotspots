@@ -10,7 +10,8 @@ if(length(args) != 4){
 library(tidyverse)
 out <- args[4]
 
-transvar <- read_tsv(args[3]) %>% select(input,CHROM,POS,REF,ALT) %>% unique
+transvar <- read_tsv(args[3]) %>% select(input,CHROM,POS,REF,ALT) %>% unique %>%
+	mutate(CHROM=gsub("chr","",CHROM))
 transvar[] <- lapply(transvar,as.character)
 
 input <- read_tsv(args[2],col_names=c("input","Chromosome","Start_Position","End_Position","Reference_Allele","Tumor_Seq_Allele2")) %>% unique
